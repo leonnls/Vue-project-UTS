@@ -6,7 +6,7 @@ const name = ref('')
                                                                                                                                                                    
 const input_content = ref('')
 const input_category = ref(null)
-const editingTodo = ref(null);
+const editingTodo = ref(null)
 
 const todos_asc = computed(() => todos.value.sort((a,b) =>{
 	return a.createdAt - b.createdAt
@@ -27,7 +27,7 @@ watch(todos, (newVal) => {
 // 	if (input_content.value.trim() === '' || input_category.value === null) {
 // 		return
 // 	}
-
+                                                                                          
 // 	todos.value.push({
 // 		content: input_content.value,
 // 		category: input_category.value,
@@ -35,13 +35,13 @@ watch(todos, (newVal) => {
 // 		editable: false,
 // 		createdAt: new Date().getTime()
 // 	})
-// }
-                      
+// }                                                                                          
+                                                                                                       
 const addTodo = () => {
    if (input_content.value.trim() === '' || input_category.value === null) {
       return;
    }
-
+ 
    if (editingTodo.value) {
       // Jika sedang menyunting todo
       editingTodo.value.content = input_content.value;
@@ -65,9 +65,9 @@ const addTodo = () => {
 };
                                                                                                                        
 const startEditing = (todo) => {
-   editingTodo.value = todo;
-   input_content.value = todo.content;
-   input_category.value = todo.category;
+	editingTodo.value = todo;
+	input_content.value = todo.content;
+	input_category.value = tod0.category;
 };
 
 const removeTodo = (todo) => {
