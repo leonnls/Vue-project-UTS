@@ -11,7 +11,7 @@ const editingTodo = ref(null);
 const todos_asc = computed(() => todos.value.sort((a,b) =>{
 	return a.createdAt - b.createdAt
 }))
-
+                                                                                                                                                       
 watch(name, (newVal) => {
 	localStorage.setItem('name', newVal)
 })
@@ -36,7 +36,7 @@ watch(todos, (newVal) => {
 // 		createdAt: new Date().getTime()
 // 	})
 // }
-
+                      
 const addTodo = () => {
    if (input_content.value.trim() === '' || input_category.value === null) {
       return;
@@ -63,7 +63,7 @@ const addTodo = () => {
    input_content.value = '';
    input_category.value = null;
 };
-
+                                                                                                                       
 const startEditing = (todo) => {
    editingTodo.value = todo;
    input_content.value = todo.content;
@@ -79,7 +79,7 @@ onMounted(() => {
 	todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 </script>
-
+                                                                                                              
 <template>
 	<main class="app">
 		
@@ -114,7 +114,7 @@ onMounted(() => {
 						<span class="bubble business"></span>
 						<div>Perkuliahan</div>
 					</label>
-
+                              
 					<label>
 						<input 
 							type="radio" 
@@ -136,7 +136,7 @@ onMounted(() => {
 		<section class="todo-list">
 			<h3>TODO LIST</h3>
 			<div class="list" id="todo-list">
-
+				
 				<div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
 					<label>
 						<input type="checkbox" v-model="todo.done" />
