@@ -8,86 +8,86 @@ const input_content = ref('')
 const input_category = ref(null)
 const editingTodo = ref(null);
 
-const todos_asc = computed(() => todos.value.sort((a,b) =>{
-	return a.createdAt - b.createdAt
+const todos_asc = computed(() => todos.value.sort((a, b) => {
+  return a.createdAt - b.createdAt
 }))
 
 watch(name, (newVal) => {
-	localStorage.setItem('name', newVal)
+  localStorage.setItem('name', newVal)
 })
 
 watch(todos, (newVal) => {
-	localStorage.setItem('todos', JSON.stringify(newVal))
+  localStorage.setItem('todos', JSON.stringify(newVal))
 }, {
-	deep: true
+  deep: true
 })
 
-
-// const addTodo = () => {
-// 	if (input_content.value.trim() === '' || input_category.value === null) {
-// 		return
-// 	}
-
-// 	todos.value.push({
-// 		content: input_content.value,
-// 		category: input_category.value,
-// 		done: false,
-// 		editable: false,
-// 		createdAt: new Date().getTime()
-// 	})
-// }
-
 const addTodo = () => {
-   if (input_content.value.trim() === '' || input_category.value === null) {
-      return;
-   }
+  if (input_content.value.trim() === '' || input_category.value === null) {
+    return
+  }
 
-   if (editingTodo.value) {
-      // Jika sedang menyunting todo
-      editingTodo.value.content = input_content.value;
-      editingTodo.value.category = input_category.value;
-      editingTodo.value.editable = false;
-      editingTodo.value = null; // Reset todo yang sedang diedit
-   } else {
-      // Jika menambahkan todo baru
-      todos.value.push({
-         content: input_content.value,
-         category: input_category.value,
-         done: false,
-         editable: false,
-         createdAt: new Date().getTime()
-      });
-   }
+  if (editingTodo.value) {
+    editingTodo.value.content = input_content.value
+    editingTodo.value.category = input_category.value
+    editingTodo.value.editable = false
+    editingTodo.value = null
+  } else {
+    todos.value.push({
+      content: input_content.value,
+      category: input_category.value,
+      done: false,
+      editable: false,
+      createdAt: new Date().getTime()
+    })
+  }
 
-   // Reset input setelah menambah atau menyunting todo
-   input_content.value = '';
-   input_category.value = null;
-};
+  input_content.value = ''
+  input_category.value = null
+}
 
 const startEditing = (todo) => {
-   editingTodo.value = todo;
-   input_content.value = todo.content;
-   input_category.value = todo.category;
-};
+  editingTodo.value = todo
+  input_content.value = todo.content
+  input_category.value = todo.category
+}
 
 const removeTodo = (todo) => {
-	todos.value = todos.value.filter((t) => t !== todo)
+  todos.value = todos.value.filter((t) => t !== todo)
 }
 
 onMounted(() => {
-	name.value = localStorage.getItem('name') || ''
-	todos.value = JSON.parse(localStorage.getItem('todos')) || []
+  name.value = localStorage.getItem('name') || ''
+  todos.value = JSON.parse(localStorage.getItem('todos')) || []
 })
 </script>
+
+<style scoped>
+.input-name {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+#create-todo h2,
+#create-todo #new-todo-form input[type="text"] {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+#welcome-text {
+  font-size: 16px;
+  opacity: 0.8;
+}
+</style>
 
 <template>
 	<main class="app">
 		
 		<section class="greeting">
 			<h0 class="title">
-				Halo, <input type="text" id="name" placeholder="Name here" v-model="name">
+				Halo, <input type="text" id="name" placeholder="Name here" v-model="name" class="input-name" style="font-size: 18px; opacity: 0.4;">
 			</h0>
-      <h3>Selamat Datang</h3>
+      <h3 id="welcome-text">Selamat Datang</h3>
 		</section>
 
 		<section class="create-todo">
@@ -103,7 +103,6 @@ onMounted(() => {
 				
 				<h2>Jenis Hal Kegiatan</h2>
 				<div class="options">
-
 					<label>
 						<input 
 							type="radio" 
@@ -125,7 +124,6 @@ onMounted(() => {
 						<span class="bubble personal"></span>
 						<div>Personal</div>
 					</label>
-
 				</div>
 
 				<input type="submit" value="Add todo" />
@@ -136,7 +134,6 @@ onMounted(() => {
 		<section class="todo-list">
 			<h3>TODO LIST</h3>
 			<div class="list" id="todo-list">
-
 				<div v-for="todo in todos_asc" :class="`todo-item ${todo.done && 'done'}`">
 					<label>
 						<input type="checkbox" v-model="todo.done" />
@@ -159,7 +156,6 @@ onMounted(() => {
 						<button class="edit" @click="startEditing(todo)" style="margin-left: 10px; background-color: royalblue;">Edit</button>
 					</div>
 				</div>
-
 			</div>
 		</section>
 
